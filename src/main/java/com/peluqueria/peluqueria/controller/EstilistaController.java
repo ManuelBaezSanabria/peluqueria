@@ -64,7 +64,7 @@ public class EstilistaController {
         return "redirect:/estilista/listado-admin";
     }
     
-    @GetMapping("modificar/{idEstilista}")
+    @GetMapping("modificar/{estilistaid}")
     public String modificar(Estilista estilista, Model model){
         estilista = estilistaService.getEstilista(estilista);
         model.addAttribute("estilista", estilista );
