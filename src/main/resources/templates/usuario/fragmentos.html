@@ -16,11 +16,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="row">
                     <div class="col-md-3">   
                         <button 
-                            sec:authorize="hasRole('ROLE_ADMIN')"
                             type="button" 
                             class="btn btn-primary btn-block" 
                             data-bs-toggle="modal" 
-                            data-bs-target="#agregarEstilista">
+                            data-bs-target="#agregarCategoria">
                             <i class="fas fa-plus"></i> [[#{estilista.agregar}]]
                         </button>
                     </div>
@@ -91,8 +90,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                             <th>[[#{estilista.nombre}]]</th>
                                             <th>[[#{estilista.apellido1}]]</th>
                                             <th>[[#{estilista.especialidad}]]</th>
-                                            <th sec:authorize="hasRole('ROLE_ADMIN')"></th>
-                                        </tr>
+                                            <th></th></tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="estilista, contador : ${estilistas}">
@@ -100,11 +98,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                             <td>[[${estilista.nombre}]]</td>
                                             <td>[[${estilista.apellido1}]]</td>
                                             <td>[[${estilista.especialidad}]]</td>
-                                            <td sec:authorize="hasRole('ROLE_ADMIN')">
-                                                <a th:href="@{/estilista/eliminar/}+${estilista.idEstilista}"
+                                            <td><a th:href="@{/estilista/eliminar/}+${estilista.estilistaid}"
                                                    class="btn btn-danger">
                                                     <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
-                                                <a th:href="@{/estilista/modificar/}+${estilista.idEstilista}"
+                                                <a th:href="@{/estilista/modificar/}+${estilista.estilistaid}"
                                                    class="btn btn-success">
                                                     <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a></td></tr>
                                     </tbody>
@@ -137,7 +134,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                           th:object="${estilista}"
                           class="was-validated"                          
                           enctype="multipart/form-data">
-                        <input type="hidden" name="estilistaid" th:field="*{idEstillista}"/>
+                        <input type="hidden" name="estilistaid" th:field="*{estilistaid}"/>
                         <input type="hidden" name="imagenurl" th:field="*{imagenurl}"/>
                         <section th:replace="~{estilista/fragmentos :: botonesEditar}"/>
                         <div id=details>
@@ -194,7 +191,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">                                
-                        <a th:href="@{/estilista/eliminar/}+${estilista.idEstilista}"
+                        <a th:href="@{/estilista/eliminar/}+${estilista.estilistaid}"
                            class="btn btn-danger">
                             <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                         </a>

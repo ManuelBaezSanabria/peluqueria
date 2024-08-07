@@ -51,8 +51,8 @@ public class EstilistaController {
             if (!imagenFile.isEmpty()){
                 //Se sube al storage
                 estilistaService.save(estilista);
-                String rutaImagen=firebaseStorageService.cargaImagen(imagenFile, "estilista", estilista.getEstilistaid());
-                estilista.setImagenurl(rutaImagen);
+                String rutaImagen=firebaseStorageService.cargaImagen(imagenFile, "estilista", estilista.getIdEstilista());
+                estilista.setRutaImagen(rutaImagen);
             }
             estilistaService.save(estilista);
         return "redirect:/estilista/listado-admin";
