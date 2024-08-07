@@ -7,27 +7,25 @@ package com.peluqueria.peluqueria.domain;
 import lombok.Data;
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 
 @Data
 @Entity
-@Table(name="estilista")
-public class Estilista implements Serializable {
+@Table(name="MensajesContacto")
+public class MensajeContacto implements Serializable {
     
     private static final long serialVersionUID = 11;
     
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id_estilista")    
-    private Long idEstilista;
+    @Column(name="id_mensaje")    
+    private Long idMensaje;
+    private String asunto;
+    private String mensaje ;
+    private Date fechaEnvio;
     
-    private String nombre;
-    private String apellido1;
-    private String apellido2;
-    private String especialidad;
-    private String rutaImagen; 
+    @ManyToOne
+    @JoinColumn(name="idUsuario")
+    private Usuario usuario;
     
-    @OneToMany
-    @JoinColumn(name="id_cita", updatable=false)
-    private List<Cita> citas;
 }

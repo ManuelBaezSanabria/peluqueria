@@ -29,7 +29,7 @@ public class EstilistaServiceImpl implements EstilistaService {
 
     @Override
     public Estilista getEstilista(Estilista estilista) {
-        return estilistaDao.findById(estilista.getEstilistaid()).orElse(null);
+        return estilistaDao.findById(estilista.getIdEstilista()).orElse(null);
     }
 
     @Override

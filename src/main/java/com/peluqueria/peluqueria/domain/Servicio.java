@@ -11,23 +11,27 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name="estilista")
-public class Estilista implements Serializable {
+@Table(name="servicio")
+public class Servicio implements Serializable {
     
     private static final long serialVersionUID = 11;
     
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id_estilista")    
-    private Long idEstilista;
+    @Column(name="id_servicio")    
+    private Long idServicio;
     
     private String nombre;
-    private String apellido1;
-    private String apellido2;
-    private String especialidad;
+    private String descripcion;
+    private int duracion;
+    private int precio;
     private String rutaImagen; 
     
     @OneToMany
     @JoinColumn(name="id_cita", updatable=false)
     private List<Cita> citas;
+    
+    @OneToMany
+    @JoinColumn(name="id_promocion", updatable=false)
+    private List<Promocion> promociones;
 }

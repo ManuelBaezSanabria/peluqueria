@@ -96,7 +96,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
       </style>
     </head>
     <body >
-                <header th:fragment="header" class="header">
+        <header th:fragment="header" class="header">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
                 <div class="container">
                     <a th:href="@{/}" class="navbar-brand">[[#{aplicacion.titulo}]]</a>
@@ -113,7 +113,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                    aria-expanded="false">[[#{plantilla.estilistas}]]</a>
                                 <ul class="dropdown-menu dropdown-menu-dark">
                                     <li><a class="dropdown-item"  th:href="@{/estilista/listado}">[[#{plantilla.estilistasuser}]]</a></li>
-                                    <li><a class="dropdown-item"  th:href="@{/estilista/listado-admin}">[[#{plantilla.estilistasadmin}]]</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -124,7 +123,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                    aria-expanded="false">[[#{plantilla.servicios}]]</a>
                                 <ul class="dropdown-menu dropdown-menu-dark">
                                     <li><a class="dropdown-item"  th:href="@{/servicio/listado}">[[#{plantilla.serviciosuser}]]</a></li>
-                                    <li><a class="dropdown-item"  th:href="@{/servicio/listado-admin}">[[#{plantilla.serviciosadmin}]]</a></li>
                                 </ul>
                             </li>                          
                              <li class="nav-item dropdown">
@@ -134,8 +132,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                    role="button" 
                                    aria-expanded="false">[[#{plantilla.blog}]]</a>
                                 <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item"  th:href="@{/blog/listado}">[[#{plantilla.blogusers}]]</a></li>
-                                    <li><a class="dropdown-item"  th:href="@{/blog/listado-admin}">[[#{plantilla.blogadmin}]]</a></li>
+                                    <li><a class="dropdown-item"  th:href="@{/articuloblog/listado}">[[#{plantilla.blogusers}]]</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -145,13 +142,41 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                    role="button" 
                                    aria-expanded="false">[[#{plantilla.promo}]]</a>
                                 <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item"  th:href="@{/promociones/listado}">[[#{plantilla.promousers}]]</a></li>
-                                    <li><a class="dropdown-item"  th:href="@{/promociones/listado-admin}">[[#{plantilla.promoadmin}]]</a></li>
+                                    <li><a class="dropdown-item"  th:href="@{/promocion/listado}">[[#{plantilla.promousers}]]</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item px-2"><a class="nav-link" th:href="@{/cita/listado}">[[#{plantilla.cita}]]</a></li>
-                            <li class="nav-item px-2"><a class="nav-link" th:href="@{/contacto/listado}">[[#{plantilla.contacto}]]</a></li>
+                            <li class="nav-item px-2"><a class="nav-link" th:href="@{/mensajecontacto/listado}">[[#{plantilla.contacto}]]</a></li>
                         </ul>
+                        
+                                                <ul class="navbar-nav" 
+                            sec:authorize="!isAuthenticated()">
+                            <li class="nav-item px-2">
+                                <a class="nav-menu-link nav-link" 
+                                    th:href="@{/login}">
+                                    <i class="fas fa-right-to-bracket"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        
+                        <ul class="navbar-nav" 
+                            sec:authorize="isAuthenticated()">
+                            <li class="nav-item text-white my-auto">
+                                <img th:src="@{${session.usuarioImagen}}" 
+                                     class="rounded-circle" 
+                                     height="40"
+                                     alt="alt"/>
+                                <span sec:authentication="name"></span>
+                            </li>
+                            <li class="nav-item text-white my-auto">
+                                <form method="post"  th:action="@{/logout}">
+                                    <button class="btn btn-dark" >
+                                        <i class="fas fa-right-from-bracket"></i>
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                        
                     </div>
                 </div>
             </nav>
