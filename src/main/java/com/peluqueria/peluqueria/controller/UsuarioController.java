@@ -23,52 +23,51 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
-    
+
     @Autowired
     private UsuarioService usuarioService;
-    
-    @GetMapping("/listado-admin")
-    public String listadoAdmin(Model model){
-        var lista = usuarioService.getUsuarios();
-        model.addAttribute("usuarios", lista);
-        model.addAttribute("totalUsuarios", lista.size());
-        return "/usuario/listado-admin";
-    }
-    
+
     @GetMapping("/listado")
-    public String listado(Model model){
-        var lista = usuarioService.getUsuarios();
-        model.addAttribute("usuarios", lista);
-        model.addAttribute("totalUsuarios", lista.size());
+    public String listado(Model model) {
+        var usuarios = usuarioService.getUsuarios();
+        model.addAttribute("usuarios", usuarios);
+        model.addAttribute("totalUsuarios", usuarios.size());
         return "/usuario/listado";
     }
-    
-    @Autowired
-    private FirebaseStorageService firebaseStorageService;
-    
-    @PostMapping("/guardar")
-        public String guardar(Usuario usuario, @RequestParam MultipartFile imagenFile){
-            if (!imagenFile.isEmpty()){
-                //Se sube al storage
-                usuarioService.save(usuario);
-                String rutaImagen=firebaseStorageService.cargaImagen(imagenFile, "usuario", usuario.getIdUsuario());
-                usuario.setRutaImagen(rutaImagen);
-            }
-            usuarioService.save(usuario);
-        return "redirect:/usuario/listado-admin";
-        }
-    
-    @GetMapping("eliminar/{idUsuario}")
-    public String eliminar(Usuario usuario){
-        usuarioService.delete(usuario);
-        return "redirect:/usuario/listado-admin";
-    }
-    
-    @GetMapping("modificar/{usuarioid}")
-    public String modificar(Usuario usuario, Model model){
-        usuario = usuarioService.getUsuario(usuario);
-        model.addAttribute("usuario", usuario );
+
+    @GetMapping("/nuevo")
+    public String usuarioNuevo(Usuario usuario) {
         return "/usuario/modifica";
     }
-    
+
+    @Autowired
+    private FirebaseStorageService firebaseStorageService;
+
+    @PostMapping("/guardar")
+    public String usuarioGuardar(Usuario usuario,
+            @RequestParam("imagenFile") MultipartFile imagenFile) {
+        if (!imagenFile.isEmpty()) {
+            usuarioService.save(usuario,false);
+            usuario.setRutaImagen(
+                    firebaseStorageService.cargaImagen(
+                            imagenFile,
+                            "usuario",
+                            usuario.getIdUsuario()));
+        }
+        usuarioService.save(usuario,true);
+        return "redirect:/usuario/listado";
+    }
+
+    @GetMapping("/eliminar/{idUsuario}")
+    public String usuarioEliminar(Usuario usuario) {
+        usuarioService.delete(usuario);
+        return "redirect:/usuario/listado";
+    }
+
+    @GetMapping("/modificar/{idUsuario}")
+    public String usuarioModificar(Usuario usuario, Model model) {
+        usuario = usuarioService.getUsuario(usuario);
+        model.addAttribute("usuario", usuario);
+        return "/usuario/modifica";
+    }
 }
