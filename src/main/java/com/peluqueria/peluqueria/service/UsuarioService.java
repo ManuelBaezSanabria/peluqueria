@@ -10,16 +10,28 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 public interface UsuarioService {
-            //Se enuncia un método que recupera los registros de la tabla bicicleta dentro de un ArrayList
+    // Se obtiene un listado de usuarios en un List
     public List<Usuario> getUsuarios();
     
-    //Se obtiene un registro de la tabla bicicleta en un objeto bicicleta si el idBicicleta existe sino pasa un null
+    // Se obtiene un Usuario, a partir del id de un usuario
     public Usuario getUsuario(Usuario usuario);
     
-    //Se crea un nuevo registro en bicicleta si el objeto Bicicleta  NO tiene idBicicleta
-    //se actualiza el registro en la tabla bicicleta si el objeto bicicleta tiene un idBicicleta
-    public void save(Usuario usuario);
+    // Se obtiene un Usuario, a partir del username de un usuario
+    public Usuario getUsuarioPorUsername(String username);
+
+    // Se obtiene un Usuario, a partir del username y el password de un usuario
+    public Usuario getUsuarioPorUsernameYPassword(String username, String password);
     
-    //Se elimina el registro por idBicicleta
+    // Se obtiene un Usuario, a partir del username y el password de un usuario
+    public Usuario getUsuarioPorUsernameOCorreo(String username, String correo);
+    
+    // Se valida si existe un Usuario considerando el username
+    public boolean existeUsuarioPorUsernameOCorreo(String username, String correo);
+    
+    // Se inserta un nuevo usuario si el id del usuario esta vacío
+    // Se actualiza un usuario si el id del usuario NO esta vacío
+    public void save(Usuario usuario,boolean crearRolUser);
+    
+    // Se elimina el usuario que tiene el id pasado por parámetro
     public void delete(Usuario usuario);
 }

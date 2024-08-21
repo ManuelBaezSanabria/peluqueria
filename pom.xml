@@ -12,7 +12,7 @@
 	<artifactId>peluqueria</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>peluqueria</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Proyecto Final Aplicaciones Web y Patrones</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -107,6 +107,10 @@
             <artifactId>validation-api</artifactId>
              <version>2.0.1.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency> 
 	</dependencies>
 
 	<build>

@@ -22,10 +22,10 @@ public class ArticuloBlog implements Serializable {
     private Long idArticulo;
     private String titulo;
     private String contenido ;
-    private Date fechapublicacion;
+    private Date fechaPublicacion;
     
     @ManyToOne
-    @JoinColumn(name="idEstilista")
-    private Estilista estilita;
+    @JoinColumn(name="id_estilista")
+    private Estilista estilista;
     
 }
