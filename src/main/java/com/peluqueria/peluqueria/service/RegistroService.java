@@ -8,6 +8,7 @@ package com.peluqueria.peluqueria.service;
  *
  * @author AMD
  */
+
 import com.peluqueria.peluqueria.domain.Usuario;
 import jakarta.mail.MessagingException;
 import org.springframework.ui.Model;
