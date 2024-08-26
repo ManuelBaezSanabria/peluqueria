@@ -9,6 +9,9 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 
 @Data
 @Entity
@@ -21,8 +24,10 @@ public class Cita implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id_cita")    
     private Long idCita;
-    private Date fecha;
-    private Timestamp hora;
+    @Column(name = "fecha")
+    private LocalDate fecha;
+    @Column(name = "hora")
+    private LocalTime hora;
     
     @ManyToOne
     @JoinColumn(name="idUsuario")

@@ -8,6 +8,7 @@ import lombok.Data;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -20,9 +21,12 @@ public class Promocion implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id_promocion")    
     private Long idPromocion;
+    private String nombre;
     private String descripcion;
-    private Date fechaInicio;
-    private Date fechaFin;
+    @Column(name = "fecha_inicio")
+    private LocalDate fechaInicio;
+    @Column(name = "fecha_fin")
+    private LocalDate fechaFin;
     private Long descuento;
     private String rutaImagen;
     

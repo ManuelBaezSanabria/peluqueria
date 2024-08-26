@@ -33,59 +33,82 @@
                             <h5 class="modal-title">[[#{promocion.agregar}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div> 
-                        <form th:action="@{/promocion/guardar}" th:object="${promocion}" method="POST" class="was-validated" enctype="multipart/form-data">
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="idServicio">[[#{promocion.servicio}]]</label>
-                                    <select name="servicio.idServicio" 
-                                            class="form-select">
-                                        <option th:each="s : ${servicios}" 
-                                                th:value="${s.idServicio}">[[${s.descripcion}]]</option>
-                                    </select>
-                                </div>
+                        <form th:action="@{/promocion/guardar}" 
+                              th:object="${promocion}" 
+                              method="POST" 
+                              class="was-validated" 
+                              enctype="multipart/form-data">
 
-                                <div class="mb-3">
-                                    <label for="descripcion">[[#{promocion.descripcion}]]</label>
-                                    <input type="text" 
-                                           class="form-control" 
-                                           name="descripcion" required="true"/>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="descuento">[[#{promocion.descuento}]]</label>
-                                    <input type="number" 
-                                           class="form-control" 
-                                           name="descuento" required="true"/>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="fechaInicio">[[#{promocion.fechaInicio}]]</label>
-                                    <input type="date" 
-                                           class="form-control" 
-                                           name="fechaInicio" required="true"/>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="fechaFin">[[#{promocion.fechaFin}]]</label>
-                                    <input type="date" 
-                                           class="form-control" 
-                                           name="fechaFin" required="true"/>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="activo">[[#{promocion.activo}]]</label>
-                                    <input class="form-check-input" type="checkbox" name="activo" id="activo"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="imagen">[[#{promocion.imagen}]]</label>
-                                    <input class="form-control" type="file" name="imagenFile" onchange="readURL(this);"/>
-                                    <img id="blah" src="#" alt="your image" height="200"/>
-                                </div>
+                            <!-- Selección de Servicio -->
+                            <div class="mb-3">
+                                <label for="idServicio">[[#{promocion.servicio}]]</label>
+                                <select name="servicio.idServicio" class="form-select" required="true">
+                                    <option th:each="s : ${servicios}" 
+                                            th:value="${s.idServicio}" 
+                                            th:text="${s.descripcion}">Servicio</option>
+                                </select>
                             </div>
+                            
+                            <!-- Nombre -->
+                            <div class="mb-3">
+                                <label for="nombre">[[#{promocion.nombre}]]</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       name="nombre" 
+                                       required="true"/>
+                            </div>
+
+                            <!-- Descripción -->
+                            <div class="mb-3">
+                                <label for="descripcion">[[#{promocion.descripcion}]]</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       name="descripcion" 
+                                       required="true"/>
+                            </div>
+
+                            <!-- Descuento -->
+                            <div class="mb-3">
+                                <label for="descuento">[[#{promocion.descuento}]]</label>
+                                <input type="number" 
+                                       class="form-control" 
+                                       name="descuento"  
+                                       required="true"/>
+                            </div>
+
+                            <!-- Fecha Inicio -->
+                            <div class="mb-3">
+                                <label for="fechaInicio">[[#{promocion.fechaInicio}]]</label>
+                                <input type="date" 
+                                       class="form-control" 
+                                       name="fechaInicio" 
+                                       required="true"/>
+                            </div>
+
+                            <!-- Fecha Fin -->
+                            <div class="mb-3">
+                                <label for="fechaFin">[[#{promocion.fechaFin}]]</label>
+                                <input type="date" 
+                                       class="form-control" 
+                                       name="fechaFin" 
+                                       required="true"/>
+                            </div>
+
+                            <!-- Imagen -->
+                            <div class="mb-3">
+                                <label for="imagen">[[#{promocion.imagen}]]</label>
+                                <input class="form-control" 
+                                       type="file" 
+                                       name="imagenFile" 
+                                       onchange="readURL(this);"/>
+                                <img id="blah" src="#" alt="your image" height="200" />
+                            </div>
+
                             <div class="modal-footer">
                                 <button class="btn btn-primary" type="submit">Guardar</button>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -178,6 +201,15 @@
                                                         <option th:each="s : ${servicios}" 
                                                                 th:value="${s.idServicio}">[[${s.descripcion}]]</option>
                                                     </select>
+                                                </div>
+                                                <!-- Nombre -->
+                                                <div class="mb-3">
+                                                    <label for="nombre">[[#{promocion.nombre}]]</label>
+                                                    <input type="text" 
+                                                           class="form-control" 
+                                                           name="nombre" 
+                                                           th:field="*{nombre}"
+                                                           required="true"/>
                                                 </div>
 
                                                                                                 <div class="mb-3">

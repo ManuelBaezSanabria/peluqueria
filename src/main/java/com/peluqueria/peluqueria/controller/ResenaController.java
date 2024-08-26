@@ -5,8 +5,11 @@
 package com.peluqueria.peluqueria.controller;
 
 import com.peluqueria.peluqueria.domain.Resena;
+import com.peluqueria.peluqueria.service.EstilistaService;
 import com.peluqueria.peluqueria.service.ResenaService;
 import com.peluqueria.peluqueria.service.FirebaseStorageService;
+import com.peluqueria.peluqueria.service.ServicioService;
+import com.peluqueria.peluqueria.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +29,10 @@ public class ResenaController {
     
     @Autowired
     private ResenaService resenaService;
+    @Autowired
+    private EstilistaService estilistaService;
+    @Autowired
+    private UsuarioService usuarioService;
     
     @GetMapping("/listado-admin")
     public String listadoAdmin(Model model){
@@ -40,6 +47,10 @@ public class ResenaController {
         var lista = resenaService.getResenas();
         model.addAttribute("resenas", lista);
         model.addAttribute("totalResenas", lista.size());
+        var estilistas = estilistaService.getEstilistas();
+        model.addAttribute("estilistas", estilistas);
+        var usuarios = usuarioService.getUsuarios();
+        model.addAttribute("usuarios", usuarios);
         return "/resena/listado";
     }
     

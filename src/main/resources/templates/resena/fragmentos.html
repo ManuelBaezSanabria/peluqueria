@@ -30,22 +30,30 @@
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
-                            <h5 class="modal-title">[[#{promocion.agregar}]]</h5>
+                            <h5 class="modal-title">[[#{resena.agregar}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div> 
-                        <form th:action="@{/promocion/guardar}" th:object="${promocion}" method="POST" class="was-validated" enctype="multipart/form-data">
+                        <form th:action="@{/resena/guardar}" th:object="${promocion}" method="POST" class="was-validated" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label for="idServicio">[[#{resena.estilista}]]</label>
-                                    <select name="estilista.EstilistaID" 
+                                    <label for="idEstilista">[[#{resena.estilista}]]</label>
+                                    <select name="estilista.idEstilista" 
                                             class="form-select">
                                         <option th:each="e : ${estilistas}" 
-                                                th:value="${e.EstilistaID}">[[${e.nombre}]]</option>
+                                                th:value="${e.idEstilista}">[[${e.nombre}]]</option>
                                     </select>
                                 </div>
+                                        <div class="mb-3">
+                                                    <label for="idUsuario">[[#{mensajecontacto.usuario}]]</label>
+                                                    <select name="usuario.idUsuario" 
+                                                            class="form-select">
+                                                        <option th:each="s : ${usuarios}" 
+                                                                th:value="${s.idUsuario}">[[${s.nombre}]]</option>
+                                                    </select>
+                                                </div>
 
                                 <div class="mb-3">
-                                    <label for="calificacion">[[#{resena.descripcion}]]</label>
+                                    <label for="calificacion">[[#{resena.calificacion}]]</label>
                                     <select name="calificacion" class="form-select">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -96,24 +104,24 @@
                                             <th>#</th>
                                             <th>[[#{resena.calificacion}]]</th>
                                             <th>[[#{resena.comentario}]]</th>
-                                            <th>[[#{resena.estilistaID}]]</th>
+                                            <th>[[#{resena.idResena}]]</th>
                                             <th>[[#{resena.fecha}]]</th>
                                             <th sec:authorize="hasRole('ROLE_ADMIN')"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="resena, contador : ${resenas}">
-                                            <td>[[${resena.ResenaID}]]</td>
+                                            <td>[[${resena.idResena}]]</td>
                                             <td>[[${resena.comentario}]]</td>
                                             <td style="text-align: end">[[${resena.calificacion}]]</td>
-                                            <td style="text-align: center">[[${resena.EstilistaID}]]</td>
-                                            <td style="text-align: center">[[${resena.UsuarioID}]]</td>
+                                            <td style="text-align: center">[[${resena.estilista.idEstilista}]]</td>
+                                            <td style="text-align: center">[[${resena.usuario.idUsuario}]]</td>
                                             <td sec:authorize="hasRole('ROLE_ADMIN')">
-                                                <a th:href="@{/promocion/eliminar/}+${promocion.idPromocion}" 
+                                                <a th:href="@{/resena/eliminar/}+${resena.idResena}" 
                                                    class="btn btn-danger">
                                                     <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                                                 </a>
-                                                <a th:href="@{/promocion/modificar/}+${promocion.idPromocion}" 
+                                                <a th:href="@{/resena/modificar/}+${resena.idResena}" 
                                                    class="btn btn-success">
                                                     <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
                                                 </a>
@@ -122,7 +130,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="text-center p-2" th:if="${promociones == null or promociones.empty}">
+                            <div class="text-center p-2" th:if="${resenas == null or resenas.empty}">
                                 <span>[[#{lista.vacia}]]</span>
                             </div>
                         </div>
@@ -131,7 +139,7 @@
                         <div class="card text-center bg-success text-white mb-3">
                             <div class="card-body">
                                 <h3>[[#{promocion.total}]]</h3>
-                                <h4 class="fs-2"><i class="fas fa-tags"></i> [[${totalPromociones}]]</h4>
+                                <h4 class="fs-2"><i class="fas fa-tags"></i> [[${totalResenas}]]</h4>
                             </div>
                         </div>
                     </div>
@@ -144,11 +152,10 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <form method="POST" th:action="@{/promocion/resena}" th:object="${resena}" class="was-validated" enctype="multipart/form-data">
-                        <input type="hidden" name="resenaId" th:field="*{resenaId}"/>
-                        <input type="hidden" name="resenaId" th:field="*{resenaId}"/>
-                        <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}"/>
-                        <section th:replace="~{promocion/fragmentos :: botonesEditar}"/>
+                    <form method="POST" th:action="@{/resena/guardar}" th:object="${resena}" class="was-validated" enctype="multipart/form-data">
+                        <input type="hidden" name="IdResena" th:field="*{idResena}"/>
+                        <input type="hidden" name="IdUsuario" th:field="*{idUsuario}"/>
+                        <section th:replace="~{resena/fragmentos :: botonesEditar}"/>
                         <div id="details">
                             <div class="container">
                                 <div class="row">
@@ -159,56 +166,40 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="mb-3">
-                                                    <label for="idServicio">[[#{promocion.servicio}]]</label>
-                                                    <select name="servicio.idServicio" 
-                                                            th:field="*{servicio.idServicio}" 
-                                                            class="form-select">
-                                                        <option th:each="s : ${servicios}" 
-                                                                th:value="${s.idServicio}">[[${s.descripcion}]]</option>
-                                                    </select>
-                                                </div>
+                                    <label for="idEstilista">[[#{resena.estilista}]]</label>
+                                    <select name="estilista.idEstilista" 
+                                            class="form-select">
+                                        <option th:each="e : ${estilistas}" 
+                                                th:value="${e.idEstilista}">[[${e.nombre}]]</option>
+                                    </select>
 
-                                                   <div class="mb-3">
-                                                    <label for="descripcion">[[#{promocion.descripcion}]]</label>
-                                                    <input type="text" 
-                                                           class="form-control" 
-                                                           name="descripcion" 
-                                                           th:field="*{descripcion}" required="true"/>
-                                                </div>
+                                <div class="mb-3">
+                                    <label for="calificacion">[[#{resena.calificacion}]]</label>
+                                    <select name="calificacion" class="form-select">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
 
-                                                <div class="mb-3">
-                                                    <label for="descuento">[[#{promocion.descuento}]]</label>
-                                                    <input type="number" 
-                                                           class="form-control" 
-                                                           name="descuento" 
-                                                           th:field="*{descuento}" required="true"/>
-                                                </div>
+                                <div class="mb-3">
+                                    <label for="comentario">[[#{resena.comentario}]]</label>
+                                        <textarea class="form-control" 
+                                        rows="3" 
+                                        name="comentario" 
+                                        th:field="*{comentario}"></textarea>
+                                </div>
 
-                                                <div class="mb-3">
-                                                    <label for="fechaInicio">[[#{promocion.fechaInicio}]]</label>
-                                                    <input type="date" 
-                                                           class="form-control" 
-                                                           name="fechaInicio" 
-                                                           th:field="*{fechaInicio}" required="true"/>
-                                                </div>
+                                <div class="mb-3">
+                                    <label for="fecha">[[#{resena.fecha}]]</label>
+                                    <input type="date" 
+                                           class="form-control" 
+                                           name="fecha" required="true"/>
+                                </div>
 
-                                                <div class="mb-3">
-                                                    <label for="fechaFin">[[#{promocion.fechaFin}]]</label>
-                                                    <input type="date" 
-                                                           class="form-control" 
-                                                           name="fechaFin" 
-                                                           th:field="*{fechaFin}" required="true"/>
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <label for="activo">[[#{promocion.activo}]]</label>
-                                                    <input class="form-check-input" type="checkbox" name="activo" id="activo" th:field="*{activo}"/>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="imagen">[[#{promocion.imagen}]]</label>
-                                                    <input class="form-control" type="file" name="imagenFile" onchange="readURL(this);"/>
-                                                    <img id="blah" th:src="@{${promocion.rutaImagen}}" alt="your image" height="200"/>
-                                                </div>
+                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -225,12 +216,12 @@
             <div class="container py-4 mb-4 bg-light">
                 <div class="row">
                     <div class="col-md-4 d-grid">
-                        <a th:href="@{/promocion/listado}" class="btn btn-primary">
+                        <a th:href="@{/resena/listado}" class="btn btn-primary">
                             <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">                                
-                        <a th:href="@{/promocion/eliminar/}+${promocion.idPromocion}" class="btn btn-danger">
+                        <a th:href="@{/resena/eliminar/}+${resena.idResena}" class="btn btn-danger">
                             <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                         </a>
                     </div>

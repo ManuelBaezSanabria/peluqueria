@@ -45,6 +45,8 @@ public class PromocionController {
         var lista = promocionService.getPromociones();
         model.addAttribute("promociones", lista);
         model.addAttribute("totalPromociones", lista.size());
+        var servicios = servicioService.getServicios();
+        model.addAttribute("servicios", servicios);
         return "/promocion/listado";
     }
     

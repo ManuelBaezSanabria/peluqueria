@@ -7,6 +7,7 @@ package com.peluqueria.peluqueria.domain;
 import lombok.Data;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -22,7 +23,8 @@ public class ArticuloBlog implements Serializable {
     private Long idArticulo;
     private String titulo;
     private String contenido ;
-    private Date fechaPublicacion;
+    @Column(name = "fecha_publicacion")
+    private LocalDate fechaPublicacion;
     
     @ManyToOne
     @JoinColumn(name="id_estilista")

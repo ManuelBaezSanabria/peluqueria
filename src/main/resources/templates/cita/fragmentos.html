@@ -65,7 +65,7 @@
 
                                 <div class="mb-3">
                                     <label for="fecha">[[#{cita.fecha}]]</label>
-                                    <input type="datetime-local" 
+                                    <input type="date" 
                                            class="form-control" 
                                            name="fecha" required="true"/>
                                 </div>
@@ -114,8 +114,8 @@
                                             <td>[[${cita.usuario.nombre}]]</td>
                                             <td>[[${cita.estilista.nombre}]]</td>
                                             <td>[[${cita.servicio.descripcion}]]</td>
-                                            <td>[[${#dates.format(cita.fecha, 'dd/MM/yyyy')}]]</td>
-                                            <td>[[${#dates.format(cita.hora, 'HH:mm')}]]</td>
+                                            <td>[[${cita.fecha}]]</td>
+                                            <td>[[${cita.hora}]]</td>
                                             <td sec:authorize="hasRole('ROLE_ADMIN')">
                                                 <a th:href="@{/cita/eliminar/}+${cita.idCita}" 
                                                    class="btn btn-danger">
