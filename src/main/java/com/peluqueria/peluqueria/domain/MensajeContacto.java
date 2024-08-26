@@ -25,7 +25,7 @@ public class MensajeContacto implements Serializable {
     private Date fechaEnvio;
     
     @ManyToOne
-    @JoinColumn(name="idUsuario")
+    @JoinColumn(name="id_usuario")
     private Usuario usuario;
     
 }

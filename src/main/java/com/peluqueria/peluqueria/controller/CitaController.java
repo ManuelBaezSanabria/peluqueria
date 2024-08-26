@@ -49,6 +49,12 @@ public class CitaController {
         var lista = citaService.getCitas();
         model.addAttribute("citas", lista);
         model.addAttribute("totalCitas", lista.size());
+        var servicios = servicioService.getServicios();
+        model.addAttribute("servicios", servicios);
+        var estilistas = estilistaService.getEstilistas();
+        model.addAttribute("estilistas", estilistas);
+        var usuarios = usuarioService.getUsuarios();
+        model.addAttribute("usuarios", usuarios);
         return "/cita/listado";
     }
     

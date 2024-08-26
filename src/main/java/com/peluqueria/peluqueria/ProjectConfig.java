@@ -50,7 +50,7 @@ public class ProjectConfig
 
     }
     
-        @Bean("messageSource")
+    @Bean("messageSource")
     public MessageSource messageSource() {
        ResourceBundleMessageSource messageSource = 
                new ResourceBundleMessageSource();

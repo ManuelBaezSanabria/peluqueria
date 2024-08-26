@@ -35,6 +35,8 @@ public class ArticuloBlogController {
         var lista = articuloblogService.getArticuloBlogs();
         model.addAttribute("articuloblogs", lista);
         model.addAttribute("totalArticuloBlogs", lista.size());
+        var estilistas = estilistaService.getEstilistas();
+        model.addAttribute("estilistas", estilistas);
         return "/articuloblog/listado-admin";
     }
     
@@ -43,7 +45,6 @@ public class ArticuloBlogController {
         var lista = articuloblogService.getArticuloBlogs();
         model.addAttribute("articuloblogs", lista);
         model.addAttribute("totalArticuloBlogs", lista.size());
-        
         var estilistas = estilistaService.getEstilistas();
         model.addAttribute("estilistas", estilistas);
         
@@ -53,13 +54,13 @@ public class ArticuloBlogController {
     @PostMapping("/guardar")
         public String guardar(ArticuloBlog articuloblog){
             articuloblogService.save(articuloblog);
-        return "redirect:/articuloblog/listado-admin";
+        return "redirect:/articuloblog/listado";
         }
     
     @GetMapping("eliminar/{idArticuloBlog}")
     public String eliminar(ArticuloBlog articuloblog){
         articuloblogService.delete(articuloblog);
-        return "redirect:/articuloblog/listado-admin";
+        return "redirect:/articuloblog/listado";
     }
     
     @GetMapping("modificar/{articuloblogid}")

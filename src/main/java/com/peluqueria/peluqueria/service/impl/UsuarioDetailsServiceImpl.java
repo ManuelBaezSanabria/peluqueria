@@ -55,6 +55,11 @@ implements UsuarioDetailsService, UserDetailsService {
         session.removeAttribute("usuarioImagen");
         session.setAttribute("usuarioImagen", usuario.getRutaImagen());
         
+        //Recuperación UserID
+        
+        session.removeAttribute("IdUsuario");
+        session.setAttribute("IdUsuario", usuario.getIdUsuario());
+        
         //Se recuperan los roles
         var roles = new ArrayList<GrantedAuthority>();
         for (Rol r: usuario.getRoles()){

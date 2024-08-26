@@ -7,6 +7,7 @@ package com.peluqueria.peluqueria.controller;
 import com.peluqueria.peluqueria.domain.MensajeContacto;
 import com.peluqueria.peluqueria.service.MensajeContactoService;
 import com.peluqueria.peluqueria.service.FirebaseStorageService;
+import com.peluqueria.peluqueria.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,11 +28,16 @@ public class MensajeContactoController {
     @Autowired
     private MensajeContactoService mensajecontactoService;
     
+    @Autowired
+    private UsuarioService usuarioService;
+    
     @GetMapping("/listado-admin")
     public String listadoAdmin(Model model){
         var lista = mensajecontactoService.getMensajeContactos();
         model.addAttribute("mensajecontactos", lista);
         model.addAttribute("totalMensajeContactos", lista.size());
+        var usuarios = usuarioService.getUsuarios();
+        model.addAttribute("usuarios", usuarios);
         return "/mensajecontacto/listado-admin";
     }
     
@@ -40,19 +46,21 @@ public class MensajeContactoController {
         var lista = mensajecontactoService.getMensajeContactos();
         model.addAttribute("mensajecontactos", lista);
         model.addAttribute("totalMensajeContactos", lista.size());
+        var usuarios = usuarioService.getUsuarios();
+        model.addAttribute("usuarios", usuarios);
         return "/mensajecontacto/listado";
     }
     
     @PostMapping("/guardar")
         public String guardar(MensajeContacto mensajecontacto){
             mensajecontactoService.save(mensajecontacto);
-        return "redirect:/mensajecontacto/listado-admin";
+        return "redirect:/mensajecontacto/listado";
         }
     
     @GetMapping("eliminar/{idMensajeContacto}")
     public String eliminar(MensajeContacto mensajecontacto){
         mensajecontactoService.delete(mensajecontacto);
-        return "redirect:/mensajecontacto/listado-admin";
+        return "redirect:/mensajecontacto/listado";
     }
     
     @GetMapping("modificar/{mensajecontactoid}")
