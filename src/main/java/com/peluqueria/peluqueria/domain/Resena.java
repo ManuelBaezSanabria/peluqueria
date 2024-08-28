@@ -7,6 +7,7 @@ package com.peluqueria.peluqueria.domain;
 import lombok.Data;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -23,14 +24,15 @@ public class Resena implements Serializable {
     private Long idResena;
     private String comentario;
     private int calificacion;
-    private Date fecha;    
+    @Column(name = "fecha")
+    private LocalDate fecha;   
     
     @ManyToOne
     @JoinColumn(name="idUsuario")
     private Usuario usuario;
     
     @ManyToOne
-    @JoinColumn(name="idEstiliosta")
+    @JoinColumn(name="idEstilista")
     private Estilista estilista;
     
 //    @ManyToOne

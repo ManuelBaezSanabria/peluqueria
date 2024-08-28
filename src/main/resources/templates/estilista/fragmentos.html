@@ -252,6 +252,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
             </div>
         </section>
+                
+                <section th:fragment="tarjetas" class="bg-light">
+            <div class="row row-cols-4">
+                <div class="card" th:each="e : ${estilistas}">
+                    <figure>
+                        <img th:src="${e.rutaImagen}"
+                             height="200"
+                             alt="alt"/>
+                        <figcaption>
+                            [[${e.especialidad}]] 
+                        </figcaption>
+                    </figure>
+                    <div class="card-header">
+                        <h4>[[${e.nombre}]]</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>[[${e.apellido1}]]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </body>
 </html>

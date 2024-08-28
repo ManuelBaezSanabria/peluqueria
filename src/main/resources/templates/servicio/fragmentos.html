@@ -187,6 +187,28 @@
                 </div>
             </div>
         </section>
+        
+        <!-- 2 Sección para mostrar las tarjetas de los productos -->
+        <section th:fragment="tarjetas" class="bg-light">
+            <div class="row row-cols-4">
+                <div class="card" th:each="s : ${servicios}">
+                    <figure>
+                        <img th:src="${s.rutaImagen}"
+                             height="200"
+                             alt="alt"/>
+                        <figcaption>
+                            ¢[[${s.precio}]] ([[${s.duracion}]])
+                        </figcaption>
+                    </figure>
+                    <div class="card-header">
+                        <h4>[[${s.descripcion}]]</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>[[${s.nombre}]]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </body>
 </html>

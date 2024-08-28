@@ -14,7 +14,6 @@
                 <div class="row">
                     <div class="col-md-3">   
                         <button 
-                            sec:authorize="hasRole('ROLE_ADMIN')"
                             type="button" 
                             class="btn btn-primary btn-block" 
                             data-bs-toggle="modal" data-bs-target="#agregarCita">
@@ -88,7 +87,7 @@
 
         <!-- 3 Sección principal para mostrar la información de la entidad 'Cita' -->
         <section th:fragment="listadoCitas" id="citas">
-            <div class="container">
+            <div class="container" sec:authorize="hasRole('ROLE_ADMIN')">
                 <div class="row">
                     <div class="col-md-9">
                         <div class="card">
@@ -154,6 +153,7 @@
                 <div class="col-md-8">
                     <form method="POST" th:action="@{/cita/guardar}" th:object="${cita}" class="was-validated">
                         <input type="hidden" name="idCita" th:field="*{idCita}"/>
+                        <input type="hidden" name="usuario" th:field="*{usuario.idUsuario}"/>
                         <section th:replace="~{cita/fragmentos :: botonesEditar}"/>
                         <div id="details">
                             <div class="container">
@@ -164,15 +164,6 @@
                                                 <h4>[[#{accion.actualizar}]]</h4>
                                             </div>
                                             <div class="card-body">
-                                                <div class="mb-3">
-                                                    <label for="usuario">[[#{cita.usuario}]]</label>
-                                                    <select name="usuario.idUsuario" 
-                                                            th:field="*{usuario.idUsuario}" 
-                                                            class="form-select">
-                                                        <option th:each="u : ${usuarios}" 
-                                                                th:value="${u.idUsuario}">[[${u.nombre}]]</option>
-                                                    </select>
-                                                </div>
 
                                                 <div class="mb-3">
                                                     <label for="estilista">[[#{cita.estilista}]]</label>
@@ -193,23 +184,26 @@
                                                                 th:value="${s.idServicio}">[[${s.descripcion}]]</option>
                                                     </select>
                                                 </div>
+                                                
+                                                <div class="mb-3">
+                                                    <label for="hora">[[#{cita.hora}]]</label>
+                                                    <input type="time" 
+                                                           class="form-control" 
+                                                           name="hora" 
+                                                           th:field="*{hora}"
+                                                           min="09:00" max="18:00" step="30" required="true"/>
+                                                </div>
 
-                                                                                                <div class="mb-3">
+                                                <div class="mb-3">
                                                     <label for="fecha">[[#{cita.fecha}]]</label>
-                                                    <input type="datetime-local" 
+                                                    <input type="date" 
                                                            class="form-control" 
                                                            name="fecha" 
                                                            th:field="*{fecha}" 
                                                            required="true"/>
                                                 </div>
 
-                                                <div class="mb-3">
-                                                    <label for="notas">[[#{cita.notas}]]</label>
-                                                    <textarea class="form-control" 
-                                                              rows="3" 
-                                                              name="notas" 
-                                                              th:field="*{notas}"></textarea>
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -243,6 +237,92 @@
                 </div>
             </div>
         </section>
+        
+        <!-- VISUALIZACIÓN DE CALENDARIO -->
+        <!--
+        <section th:fragmenet="calendario">
+            <div class="contianer">
+            <div class="calendar">
+              <div class="calendar-header">
+                <span class="month-picker" id="month-picker"> May </span>
+                <div class="year-picker" id="year-picker">
+                  <span class="year-change" id="pre-year">
+                    <pre><</pre>
+                  </span>
+                  <span id="year">2024 </span>
+                  <span class="year-change" id="next-year">
+                    <pre>></pre>
+                  </span>
+                </div>
+              </div>
+
+              <div class="calendar-body">
+                <div class="calendar-week-days">
+                  <div>Sun</div>
+                  <div>Mon</div>
+                  <div>Tue</div>
+                  <div>Wed</div>
+                  <div>Thu</div>
+                  <div>Fri</div>
+                  <div>Sat</div>
+                </div>
+                <div class="calendar-days">
+                </div>
+              </div>
+              <div class="calendar-footer">
+              </div>
+              <div class="date-time-formate">
+                <div class="day-text-formate">TODAY</div>
+                <div class="date-time-value">
+                  <div class="time-formate">01:41:20</div>
+                  <div class="date-formate">27 - Agosto - 2024</div>
+                </div>
+              </div>
+              <div class="month-list"></div>
+            </div>
+          </div>
+        </section>
+        -->
+        
+        <!-- Ver citas cliente loggeado -->
+        
+        <section th:fragment="tarjetasCitas" class="bg-light">
+            <div class="row row-cols-4">
+                <div class="card" th:each="c : ${citas}">
+                    <h2>Citas</h2>
+                    <figure>
+                        <img src="https://cdn-icons-png.flaticon.com/512/942/942759.png" height="200"/>
+                        <figcaption class="d-flex justify-content-evenly">
+                            <div>
+                                <br/>
+                                ¢[[${c.servicio.precio}]] 
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <div class="card-header">
+                        <h4>[[${c.fecha}]]</h4>
+                        <h4>[[${c.hora}]]</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Estilista: [[${c.estilista.nombre}]] </p>
+                        <p>Servicio: [[${c.servicio.nombre}]] </p>
+                    </div>
+                    <a th:href="@{/cita/eliminar/}+${c.idCita}" 
+                        class="btn btn-danger">
+                        <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                    </a>
+                    <a th:href="@{/cita/modificar/}+${c.idCita}" 
+                        class="btn btn-success">
+                        <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
+                    </a>
+                </div>                   
+            </div>
+        </section>
+            
+        
+        
+        
+        
     </body>
 </html>
 

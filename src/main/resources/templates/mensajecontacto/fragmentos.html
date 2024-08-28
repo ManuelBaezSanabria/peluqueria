@@ -14,7 +14,6 @@
                 <div class="row">
                     <div class="col-md-3">   
                         <button 
-                            sec:authorize="hasRole('ROLE_ADMIN')"
                             type="button" 
                             class="btn btn-primary btn-block" 
                             data-bs-toggle="modal" data-bs-target="#agregarMensajeContacto">
@@ -60,6 +59,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
                             </div>
                         </form>
                     </div>
@@ -198,6 +198,12 @@
                     </div>
                  </div>
             </div>
+        </section>
+        
+        <!-- Section Mapa de Ubicación -->
+        <section th:fragment="mapa" >
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d292.0886382607765!2d-84.12034866912892!3d9.945552686164392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0fb42fff4420f%3A0x173faf9bdcca94b7!2sBarber%C3%ADa%20Barba%20Roja!5e0!3m2!1ses-419!2scr!4v1724768724336!5m2!1ses-419!2scr" width="600" height="450" style="border:0;" allowfullscreen=""  referrerpolicy="no-referrer-when-downgrade"></iframe>
+            
         </section>
     </body>
 </html>

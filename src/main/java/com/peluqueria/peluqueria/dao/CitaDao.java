@@ -5,6 +5,7 @@
 package com.peluqueria.peluqueria.dao;
 
 import com.peluqueria.peluqueria.domain.Cita;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
