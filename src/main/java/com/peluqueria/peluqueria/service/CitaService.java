@@ -25,4 +25,5 @@ public interface CitaService {
     
     //Se elimina el registro por idBicicleta
     public void delete(Cita cita);
+    
 }

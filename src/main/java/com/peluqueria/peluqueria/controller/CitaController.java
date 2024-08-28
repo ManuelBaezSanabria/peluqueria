@@ -5,6 +5,7 @@
 package com.peluqueria.peluqueria.controller;
 
 import com.peluqueria.peluqueria.domain.Cita;
+import com.peluqueria.peluqueria.domain.Usuario;
 import com.peluqueria.peluqueria.service.CitaService;
 import com.peluqueria.peluqueria.service.EstilistaService;
 import com.peluqueria.peluqueria.service.FirebaseStorageService;
@@ -67,10 +68,10 @@ public class CitaController {
     @GetMapping("eliminar/{idCita}")
     public String eliminar(Cita cita){
         citaService.delete(cita);
-        return "redirect:/cita/listado-admin";
+        return "redirect:/cita/miscitas";
     }
     
-    @GetMapping("modificar/{citaid}")
+    @GetMapping("modificar/{idCita}")
     public String modificar(Cita cita, Model model){
         cita = citaService.getCita(cita);
         model.addAttribute("cita", cita );
@@ -81,7 +82,23 @@ public class CitaController {
         var servicios = servicioService.getServicios();
         model.addAttribute("servicios", servicios);
         
+        var usuarios = usuarioService.getUsuarios();
+        model.addAttribute("usuarios", usuarios);
         return "/cita/modifica";
+    }
+    
+    @GetMapping("/miscitas/{idUsuario}")
+    public String listado(Usuario usuario, Model model){
+        var lista = usuarioService.getUsuario(usuario).getCitas();
+        model.addAttribute("citas", lista);
+        model.addAttribute("totalCitas", lista.size());
+        var servicios = servicioService.getServicios();
+        model.addAttribute("servicios", servicios);
+        var estilistas = estilistaService.getEstilistas();
+        model.addAttribute("estilistas", estilistas);
+        var usuarios = usuarioService.getUsuarios();
+        model.addAttribute("usuarios", usuarios);
+        return "/cita/miscitas";
     }
     
 }

@@ -12,11 +12,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-3">   
-                        <button 
-                            sec:authorize="hasRole('ROLE_ADMIN')"
+                        <button  
                             type="button" 
                             class="btn btn-primary btn-block" 
-                            data-bs-toggle="modal" data-bs-target="#agregarPromocion">
+                            data-bs-toggle="modal" data-bs-target="#agregarResena">
                             <i class="fas fa-plus"></i> [[#{promocion.agregar}]]
                         </button>
                     </div>
@@ -25,15 +24,15 @@
         </section>
 
         <!-- 2 Fragmento para agregar promoción, es la ventana modal -->
-        <section th:fragment="agregarPromocion">
-            <div id="agregarPromocion" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <section th:fragment="agregarResena">
+            <div id="agregarResena" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
                             <h5 class="modal-title">[[#{resena.agregar}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div> 
-                        <form th:action="@{/resena/guardar}" th:object="${promocion}" method="POST" class="was-validated" enctype="multipart/form-data">
+                        <form th:action="@{/resena/guardar}" th:object="${resena}" method="POST" class="was-validated" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="idEstilista">[[#{resena.estilista}]]</label>
@@ -229,6 +228,24 @@
                         <button type="submit" class="btn btn-success">
                             <i class="fas fa-check"></i> [[#{accion.guardar}]]
                         </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section th:fragment="tarjetas" class="bg-light">
+            <div class="row row-cols-4">
+                <div class="card" th:each="r : ${resenas}">
+                    <figure>
+                        <img src="https://static.vecteezy.com/system/resources/previews/008/015/694/non_2x/3d-cartoon-golden-yellow-stars-elements-for-game-design-web-graphics-icons-application-concept-interface-ratings-illustration-vector.jpg"
+                             height="200"
+                             alt="alt"/>
+                        <figcaption>
+                            [[${r.calificacion}]] ([[${r.fecha}]])
+                        </figcaption>
+                    </figure>
+                    <div class="card-header">
+                        <h4>[[${r.comentario}]]</h4>
                     </div>
                 </div>
             </div>

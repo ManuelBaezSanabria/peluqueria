@@ -50,6 +50,15 @@ public class PromocionController {
         return "/promocion/listado";
     }
     
+    @GetMapping("/listado/{idServicio}")
+    public String listado(Servicio servicio,Model model){
+        var promociones = servicioService.getServicio(servicio).getPromociones();
+        model.addAttribute("promociones", promociones);
+        var servicios = servicioService.getServicios();
+        model.addAttribute("servicios", servicios);
+        return "/promocion/promos";
+    }
+    
     @Autowired
     private FirebaseStorageService firebaseStorageService;
     
@@ -71,21 +80,30 @@ public class PromocionController {
         return "redirect:/promocion/listado-admin";
     }
     
-    @GetMapping("modificar/{promocionid}")
+    @GetMapping("modificar/{idPromocion}")
     public String modificar(Promocion promocion, Model model){
         promocion = promocionService.getPromocion(promocion);
         model.addAttribute("promocion", promocion );
         return "/promocion/modifica";
     }
     
-    @GetMapping("listado/{idCategoria}")
-    public String listado(Servicio servicio, Model model){
+    @GetMapping("/promos")
+    public String promos(Model model){
+        var lista = promocionService.getPromociones();
+        model.addAttribute("promociones", lista);
+        model.addAttribute("totalPromociones", lista.size());
+        var servicios = servicioService.getServicios();
+        model.addAttribute("servicios", servicios);
+        return "/promocion/promos";
+    }
+    
+    @GetMapping("/promos/{idServicio}")
+    public String promos(Servicio servicio,Model model){
         var promociones = servicioService.getServicio(servicio).getPromociones();
         model.addAttribute("promociones", promociones);
         var servicios = servicioService.getServicios();
         model.addAttribute("servicios", servicios);
-        
-        return "/pruebas/listado";
+        return "/promocion/promos";
     }
     
 }

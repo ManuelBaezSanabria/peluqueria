@@ -30,7 +30,7 @@ public class Cita implements Serializable {
     private LocalTime hora;
     
     @ManyToOne
-    @JoinColumn(name="idUsuario")
+    @JoinColumn(name="id_usuario")
     private Usuario usuario;
     
     @ManyToOne

@@ -51,6 +51,7 @@ public class ResenaController {
         model.addAttribute("estilistas", estilistas);
         var usuarios = usuarioService.getUsuarios();
         model.addAttribute("usuarios", usuarios);
+        model.addAttribute("resena", new Resena());
         return "/resena/listado";
     }
     

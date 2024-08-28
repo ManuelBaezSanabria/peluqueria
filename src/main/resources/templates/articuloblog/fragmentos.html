@@ -213,6 +213,27 @@
                 </div>
             </div>
         </section>
+        
+        <section th:fragment="tarjetas" class="bg-light">
+            <div class="row row-cols-4">
+                <div class="card" th:each="a : ${articuloblogs}">
+                    <figure>
+                        <img src="https://cdn-icons-png.flaticon.com/512/4438/4438839.png"
+                             height="200"
+                             alt="alt"/>
+                        <figcaption>
+                            [[${a.titulo}]] ([[${a.fechaPublicacion}]])
+                        </figcaption>
+                    </figure>
+                    <div class="card-header">
+                        <h4>[[${a.estilista.nombre}]]</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>[[${a.contenido}]]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </body>
 </html>
 
